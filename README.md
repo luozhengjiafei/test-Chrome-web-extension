@@ -1,2 +1,2 @@
 # test-Chrome-web-extension
-Test chrome web extension
+Repository for testing chrome web extension.
