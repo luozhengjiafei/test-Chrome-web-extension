@@ -1,6 +1,6 @@
 {
   "name": "DOM Test",
-  "description": "DOM Test",
+  "description": "DOM Test application that pulls the current page's html and return it with message passing.",
   "version": "1.0.0",
   "manifest_version": 3,
   "background": {
@@ -10,7 +10,8 @@
     "storage", 
     "activeTab", 
     "scripting",
-    "tabs"
+    "tabs",
+    "activeTab"
   ],
   "host_permissions": [
     "http://*/*"
@@ -30,5 +31,18 @@
     "48": "/images/get_started48.png",
     "128": "/images/get_started128.png"
   },
-  "options_page": "/html/options.html"
+  "options_page": "/html/options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*"
+      ],
+      "css": [
+        "/css/button.css"
+      ],
+      "js": [
+        "/javascript/DOM.js"
+      ]
+    }
+  ]
 }

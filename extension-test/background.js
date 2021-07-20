@@ -3,20 +3,34 @@ var urlRegex = /^https?:\/\/(?:[^./?#]+\.)?stackoverflow\.com/;
 chrome.runtime.onInstalled.addListener(() => {
 
   // Detect chaning tab
+
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status === 'complete'/* && detectPaymentGatway() == true */) {
-      console.log("TAB UPDATED !");
+      console.log("TAB UPDATED!");
+   
+      
+      /*
       getTab().then(url => {
         console.log(url);
 
-        // var innerHTML = getTab();
-        chrome.tabs.sendMessage(tab.id, { action: 'getDOM' }, function(response){
-          console.log('I received the following DOM content:\n' + response.dom);
-        });
+         chrome.tabs.sendMessage(tab.id, { action: 'getDOM' }, function (response) {
+        console.log('I received the following DOM content:\n' + response.dom);
+      });
 
       })
+      */
     }
   })
+
+  chrome.runtime.onConnect.addListener(port => {
+    port.onMessage.addListener(msg => {
+      console.log("Suceess");
+    }
+    );
+
+  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => sendResponse('pong'));
+  });
+  
 });
 
 
