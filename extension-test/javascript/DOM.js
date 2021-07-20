@@ -12,11 +12,18 @@ chrome.tabs.onMessage.addListener(function (request, sender, sendResponse) {
 });
 */
 
+var id = "fachobicafhpmkpeaphgdhjfldckpmpd";
+
+
 // Get HTML of current tab
 let getButton = document.getElementById("getHTML");
 
 getButton.addEventListener("click", async () => {
     let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+
+    chrome.runtime.sendMessage({ greeting: "hello" }, function (response) {
+        console.log(response.farewell);
+    });
 
     chrome.scripting.executeScript(
         {
@@ -28,8 +35,6 @@ getButton.addEventListener("click", async () => {
 // Get current page html 
 async function getPageHTML() {
     let tabHtml = document.body.innerHTML;
-    ping();
-
 }
 
 function traversal(html) {
@@ -39,14 +44,4 @@ function traversal(html) {
         
     });
     return insertCoupon(coupon);
-}
-
-function ping(){
-    chrome.runtime.sendMessage('ping', response => {
-        if (chrome.runtime.lastError) {
-            setTimeout(ping, 1000);
-        } else {
-            // Do whatever you want, background script is ready now
-        }
-    });
 }

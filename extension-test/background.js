@@ -3,6 +3,12 @@ var urlRegex = /^https?:\/\/(?:[^./?#]+\.)?stackoverflow\.com/;
 chrome.runtime.onInstalled.addListener(() => {
 
   // Detect chaning tab
+  chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
+    if (request.greeting === "hello")
+      sendResponse({ farewell: "goodbye" });
+  }
+  );
 
   chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status === 'complete'/* && detectPaymentGatway() == true */) {
@@ -20,17 +26,7 @@ chrome.runtime.onInstalled.addListener(() => {
       })
       */
     }
-  })
-
-  chrome.runtime.onConnect.addListener(port => {
-    port.onMessage.addListener(msg => {
-      console.log("Suceess");
-    }
-    );
-
-  chrome.runtime.onMessage.addListener((request, sender, sendResponse) => sendResponse('pong'));
   });
-  
 });
 
 
